@@ -1,0 +1,55 @@
+
+#root {
+  font-family: Arial, sans-serif;
+  max-width: 420px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.student-card {
+  background: white;
+  border-radius: 12px;
+  padding: 28px 22px;
+  text-align: center;
+  box-shadow: 0 4px 15px #00000020;
+  border: 1px solid #eeeeee;
+}
+
+.student-card h1 {
+  color: #70b5e8;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.student-card h2 {
+  color: #333333;
+  font-size: 19px;
+}
+
+.student-card p {
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.contact-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #70b5e8;
+  color: white;
+  text-decoration: none;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+.contact-button:hover {
+  background: #4298d4;
+}
+.student-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
