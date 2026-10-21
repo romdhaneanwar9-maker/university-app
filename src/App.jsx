@@ -1,28 +1,72 @@
 
-
-
-import './App.css'
+import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import StudentCard from "./components/StudentCard";
+import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
+  const etudiants = [
+    {
+      prenom: "Anwar",
+      nom: "Romdhane",
+      email: "romdhaneanwar@gmail.tn",
+      telephone: "+216 93812273",
+      filiere: "Génie Logiciel",
+      annee: "2ème année",
+      photo: "https://placehold.co/100x100?text=Anwar",
+    },
+    {
+      prenom: "Slim",
+      nom: "Boubaker",
+      email: "slim@universite.tn",
+      telephone: "+216 22123456",
+      filiere: "Informatique",
+      annee: "2ème année",
+      photo: "https://placehold.co/100x100?text=Slim",
+    },
+    {
+      prenom: "Sarra",
+      nom: "Trabelsi",
+      email: "sarra@universite.tn",
+      telephone: "+216 25123456",
+      filiere: "Génie Logiciel",
+      annee: "2ème année",
+      photo: "https://placehold.co/100x100?text=Sarra",
+    },
+  ];
+
   return (
-    <div className="student-card">
-      <img src="/student.png" alt="Photo de l'étudiante" className="student-image" />
-      <h1>Fiche étudiant</h1>
+    <div className="app">
+      <Header />
+      <Navbar />
 
-      <h2>Anwar Romdhane</h2>
+      <main>
+        <h2 id="etudiants">Liste des étudiants</h2>
+        <p className="subtitle">
+          GLSI 2 - Année universitaire 2026-2027
+        </p>
 
-      <p><strong>Email :</strong> romdhaneanwar9@gmail.com</p>
-      <p><strong>Téléphone :</strong> +216 93812273</p>
-      <p><strong>Filière :</strong> Génie Logiciel et Systèmes d'Information</p>
-      <p><strong>Année d'étude :</strong> 2ème année</p>
-      <p><strong>Groupe :</strong> GLSI 2</p>
-      <p><strong>Ville :</strong> Mahdia</p>
+        <div className="students-container">
+          {etudiants.map((etudiant) => (
+            <StudentCard
+              key={etudiant.email}
+              prenom={etudiant.prenom}
+              nom={etudiant.nom}
+              email={etudiant.email}
+              telephone={etudiant.telephone}
+              filiere={etudiant.filiere}
+              annee={etudiant.annee}
+              photo={etudiant.photo}
+            />
+          ))}
+        </div>
+      </main>
 
-      <a href="mailto:romdhaneanwar8@gmail.com" className="contact-button">
-        Contacter
-      </a>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
+

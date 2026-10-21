@@ -1,0 +1,29 @@
+
+.student-card {
+  background-color: white;
+  width: 280px;
+  padding: 18px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px #00000015;
+}
+
+.student-photo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.student-card h2 {
+  color: #73b5e5;
+  font-size: 23px;
+  margin: 12px 0;
+}
+
+.student-card p {
+  font-size: 12px;
+  margin: 7px 0;
+  overflow-wrap: anywhere;
+}
+

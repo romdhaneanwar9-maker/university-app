@@ -1,0 +1,19 @@
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 12px;
+  background-color: #73b5e5;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
