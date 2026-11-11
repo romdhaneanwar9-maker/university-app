@@ -1,29 +1,52 @@
 
-import "./studentcard.css";
+import { useState } from "react";
 
 function StudentCard({
-  prenom = "Non renseigné",
-  nom = "Non renseigné",
-  email = "Non renseigné",
-  telephone = "Non renseigné",
-  filiere = "Génie Logiciel",
-  annee = "2ème année",
+  prenom,
+  nom,
+  email,
+  telephone,
+  filiere,
+  annee,
   photo,
+  onSupprimer,
+  onModifier,
 }) {
+  const [coordonneesVisibles, setCoordonneesVisibles] = useState(false);
+
+  const basculerInformations = () => {
+    setCoordonneesVisibles(!coordonneesVisibles);
+  };
+
   return (
     <div className="student-card">
-      {photo && (
-        <img
-          src={photo}
-          alt={`Photo de ${prenom} ${nom}`}
-          className="student-photo"
-        />
+      <img src={photo} alt={prenom} width="100" />
+
+      <h3>{prenom} {nom}</h3>
+
+      <p>Filière : {filiere}</p>
+      <p>Niveau : {annee}</p>
+
+      <button onClick={basculerInformations}>
+        {coordonneesVisibles
+          ? "Masquer les informations"
+          : "Afficher les informations"}
+      </button>
+
+      {coordonneesVisibles && (
+        <div>
+          <p>Email : {email}</p>
+          <p>Téléphone : {telephone}</p>
+        </div>
       )}
 
-      <h2>Fiche étudiant</h2>
-      <p>Nom & Prénom : {prenom} {nom}</p>
-      <p>Email : {email}</p>
-      <p>Téléphone : {telephone}</p>
+      <button onClick={onModifier}>
+        Modifier
+      </button>
+
+      <button onClick={onSupprimer}>
+        Supprimer
+      </button>
     </div>
   );
 }
