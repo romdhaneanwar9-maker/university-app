@@ -1,52 +1,83 @@
-
 import { useState } from "react";
+import "./studentcard.css";
 
 function StudentCard({
+  id,
   prenom,
   nom,
   email,
   telephone,
   filiere,
-  annee,
-  photo,
+  anneeEtude,
+  groupe,
+  ville,
+  image,
   onSupprimer,
   onModifier,
 }) {
+  // Chaque fiche gère sa propre visibilité
   const [coordonneesVisibles, setCoordonneesVisibles] = useState(false);
 
-  const basculerInformations = () => {
+  // Valeur par défaut si la ville n'est pas fournie
+  const villeAffichee = ville || "Non renseignée";
+
+  function basculerInformations() {
     setCoordonneesVisibles(!coordonneesVisibles);
-  };
+  }
 
   return (
-    <div className="student-card">
-      <img src={photo} alt={prenom} width="100" />
+    <div className="card">
+      <img src={image} alt={`Photo de ${prenom}`} />
 
-      <h3>{prenom} {nom}</h3>
+      <h2>Fiche étudiant</h2>
 
-      <p>Filière : {filiere}</p>
-      <p>Niveau : {annee}</p>
-
-      <button onClick={basculerInformations}>
-        {coordonneesVisibles
-          ? "Masquer les informations"
-          : "Afficher les informations"}
-      </button>
+      <p>
+        <strong>Nom &amp; Prénom :</strong> {prenom} {nom}
+      </p>
+      <p>
+        <strong>Filière :</strong> {filiere}
+      </p>
+      <p>
+        <strong>Année d'étude :</strong> {anneeEtude}
+      </p>
+      <p>
+        <strong>Groupe :</strong> {groupe}
+      </p>
+      <p>
+        <strong>Ville :</strong> {villeAffichee}
+      </p>
 
       {coordonneesVisibles && (
-        <div>
-          <p>Email : {email}</p>
-          <p>Téléphone : {telephone}</p>
+        <div className="coordonnees">
+          <p>
+            <strong>Email :</strong> {email}
+          </p>
+          <p>
+            <strong>Téléphone :</strong> {telephone}
+          </p>
         </div>
       )}
 
-      <button onClick={onModifier}>
-        Modifier
-      </button>
-
-      <button onClick={onSupprimer}>
-        Supprimer
-      </button>
+      <div className="actions">
+        <button type="button" onClick={basculerInformations}>
+          {coordonneesVisibles
+            ? "Masquer les coordonnées"
+            : "Afficher les coordonnées"}
+        </button>
+        <a className="contact-btn" href={`mailto:${email}`}>
+          Contacter
+        </a>
+        <button type="button" onClick={() => onModifier(id)}>
+          Modifier
+        </button>
+        <button
+          type="button"
+          className="danger"
+          onClick={() => onSupprimer(id)}
+        >
+          Supprimer
+        </button>
+      </div>
     </div>
   );
 }

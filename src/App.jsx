@@ -1,153 +1,129 @@
-
 import { useState } from "react";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import StudentCard from "./components/StudentCard";
-import Footer from "./components/Footer";
 import "./App.css";
+import Header from "./components/Header.jsx";
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
+import StudentCard from "./components/studentcard.jsx";
+import StudentForm from "./components/studentform.jsx";
+import heroImage from "./assets/hero.png";
 
 function App() {
   const [etudiants, setEtudiants] = useState([
     {
       id: 1,
-      prenom: "Anwar",
-      nom: "Romdhane",
-      email: "romdhaneanwar@gmail.com",
-      telephone: "+216 93812273",
-      filiere: "Génie Logiciel",
-      annee: "2ème année",
-      photo: "https://placehold.co/100x100?text=Anwar",
+      prenom: "Slim",
+      nom: "Boubaker",
+      email: "slimboubaker@gmail.com",
+      telephone: "+216 99 999 999",
+      filiere: "Génie Logiciel et Systèmes d'Information",
+      anneeEtude: "2ème année",
+      groupe: "GLSI 2",
+      ville: "Mahdia",
+      image: heroImage,
     },
     {
       id: 2,
-      prenom: "Slim",
-      nom: "Boubaker",
-      email: "slim@universite.tn",
-      telephone: "+216 22123456",
-      filiere: "Informatique",
-      annee: "2ème année",
-      photo: "https://placehold.co/100x100?text=Slim",
+      prenom: "Sarra",
+      nom: "Trabelsi",
+      email: "sarra.trabelsi@gmail.com",
+      telephone: "+216 11 111 111",
+      filiere: "Licence Computer Science",
+      anneeEtude: "1ère année",
+      groupe: "LCS 1",
+      ville: "Sousse",
+      image: heroImage,
     },
     {
       id: 3,
-      prenom: "Sarra",
-      nom: "Trabelsi",
-      email: "sarra@universite.tn",
-      telephone: "+216 25123456",
-      filiere: "Génie Logiciel",
-      annee: "2ème année",
-      photo: "https://placehold.co/100x100?text=Sarra",
+      prenom: "Mariem",
+      nom: "Khalfallah",
+      email: "mariem.khalfallah@gmail.com",
+      telephone: "+216 27 567 890",
+      filiere: "Licence Business Computing",
+      anneeEtude: "2ème année",
+      groupe: "LBC 2",
+      ville: "",
+      image: heroImage,
     },
   ]);
 
   const [recherche, setRecherche] = useState("");
 
-  // Ajouter un étudiant
-  const ajouterEtudiant = () => {
-    const prenom = prompt("Donner le prénom :");
-    if (prenom === null || prenom.trim() === "") return;
+  function ajouterEtudiant(nouvelEtudiant) {
+    const etudiantAvecId = { ...nouvelEtudiant, id: Date.now() };
+    setEtudiants((anciensEtudiants) => [...anciensEtudiants, etudiantAvecId]);
+  }
 
-    const nom = prompt("Donner le nom :");
-    if (nom === null || nom.trim() === "") return;
-
-    const email = prompt("Donner l'email :");
-    if (email === null || email.trim() === "") return;
-
-    const nouvelEtudiant = {
-      id: Date.now(),
-      prenom: prenom.trim(),
-      nom: nom.trim(),
-      email: email.trim(),
-      telephone: "Non renseigné",
-      filiere: "Génie Logiciel",
-      annee: "2ème année",
-      photo: "https://placehold.co/100x100?text=Etudiant",
-    };
-
-    setEtudiants([...etudiants, nouvelEtudiant]);
-  };
-
-  // Supprimer un étudiant
-  const supprimerEtudiant = (id) => {
-    setEtudiants(etudiants.filter((etudiant) => etudiant.id !== id));
-  };
-
-  // Modifier le prénom d'un étudiant
-  const modifierEtudiant = (id) => {
-    const nouveauPrenom = prompt("Donner le nouveau prénom :");
-
-    if (nouveauPrenom === null || nouveauPrenom.trim() === "") return;
-
-    setEtudiants(
-      etudiants.map((etudiant) =>
-        etudiant.id === id
-          ? { ...etudiant, prenom: nouveauPrenom.trim() }
-          : etudiant
-      )
+  function supprimerEtudiant(id) {
+    setEtudiants((anciensEtudiants) =>
+      anciensEtudiants.filter((etudiant) => etudiant.id !== id)
     );
-  };
+  }
 
-  // Rechercher un étudiant
-  const etudiantsFiltres = etudiants.filter((etudiant) => {
-    const texte = recherche.toLowerCase();
+  function modifierEtudiant(id) {
+    const nouveauPrenom = prompt("Entrez le nouveau prénom :");
+    if (nouveauPrenom !== null && nouveauPrenom.trim() !== "") {
+      setEtudiants((anciensEtudiants) =>
+        anciensEtudiants.map((etudiant) =>
+          etudiant.id === id
+            ? { ...etudiant, prenom: nouveauPrenom.trim() }
+            : etudiant
+        )
+      );
+    }
+  }
 
-    return (
-      etudiant.prenom.toLowerCase().includes(texte) ||
+  const texte = recherche.toLowerCase();
+  const etudiantsFiltres = etudiants.filter(
+    (etudiant) =>
       etudiant.nom.toLowerCase().includes(texte) ||
+      etudiant.prenom.toLowerCase().includes(texte) ||
       etudiant.filiere.toLowerCase().includes(texte)
-    );
-  });
+  );
 
   return (
-    <div className="app">
+    <>
       <Header />
       <Navbar />
 
-      <main>
-        <h2 id="etudiants">Liste des étudiants</h2>
-
-        <p className="subtitle">
-          GLSI 2 - Année universitaire 2026-2027
-        </p>
-
-        <button onClick={ajouterEtudiant}>
-          Ajouter un étudiant
-        </button>
-
-        <br />
-        <br />
+      <main className="main">
+        <StudentForm onAjouter={ajouterEtudiant} />
 
         <input
+          className="search-bar"
           type="text"
-          placeholder="Rechercher par nom ou filière..."
+          placeholder="Rechercher par nom, prénom ou filière..."
           value={recherche}
           onChange={(e) => setRecherche(e.target.value)}
         />
 
-        <div className="students-container">
+        <div className="cards">
           {etudiantsFiltres.map((etudiant) => (
             <StudentCard
               key={etudiant.id}
+              id={etudiant.id}
               prenom={etudiant.prenom}
               nom={etudiant.nom}
               email={etudiant.email}
               telephone={etudiant.telephone}
               filiere={etudiant.filiere}
-              annee={etudiant.annee}
-              photo={etudiant.photo}
-              onSupprimer={() => supprimerEtudiant(etudiant.id)}
-              onModifier={() => modifierEtudiant(etudiant.id)}
+              anneeEtude={etudiant.anneeEtude}
+              groupe={etudiant.groupe}
+              ville={etudiant.ville}
+              image={etudiant.image}
+              onSupprimer={supprimerEtudiant}
+              onModifier={modifierEtudiant}
             />
           ))}
         </div>
 
         {etudiantsFiltres.length === 0 && (
-          <p>Aucun étudiant trouvé<b>♥</b>.</p>
+          <p className="empty">Aucun étudiant trouvé.</p>
         )}
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 }
 

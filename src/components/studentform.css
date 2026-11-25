@@ -1,0 +1,77 @@
+.student-form {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.student-form h2 {
+  margin-top: 0;
+  color: #2d3880;
+}
+
+.student-form .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.student-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.student-form .field.full {
+  grid-column: 1 / -1;
+}
+
+.student-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.student-form input,
+.student-form select {
+  padding: 9px 10px;
+  border: 1px solid #c5cbe0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.student-form input:focus,
+.student-form select:focus {
+  outline: 2px solid #5b8fd9;
+  border-color: transparent;
+}
+
+.student-form .preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 6px;
+}
+
+.student-form button {
+  margin-top: 20px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  background: #2d3880;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.student-form button:hover {
+  background: #1f2757;
+}
+
+@media (max-width: 600px) {
+  .student-form .grid {
+    grid-template-columns: 1fr;
+  }
+}
